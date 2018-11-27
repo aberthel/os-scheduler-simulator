@@ -1,0 +1,15 @@
+process_num: 2
+
+Process 0
+Enter 10
+CPU 10
+Priority 55
+NumIO 0
+IO 
+
+Process 1
+Enter 0
+CPU 20
+Priority 22
+NumIO 0
+IO 
