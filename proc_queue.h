@@ -9,7 +9,7 @@ struct process {
   int* io_times; //array of times at which process makes io request
   int num_io; //total number of io requests needed
   int time_counter; //keeps track of how much CPU time has been used
-  int priority; //for priority/lottery scheduling
+  int tix; //for priority/lottery scheduling
   int status; //not entered, ready, blocked, running, or finished
   int io_timer; //keeps track of time spent in an io request
 };
@@ -29,6 +29,8 @@ void print_array_to_file(int* array[], int l, char* file_name, int num_processes
 void print_process_status(struct process *p[], int np);
 int is_io_time(struct process *x);
 int processes_completed(struct process *p[], int num_processes);
+void calculate_metrics(int* results[], struct process* p[], int length, int num_processes);
+void calculate_metrics_groups(int* results[], struct process* p[], int length, int num_processes, int sep);
 
 /* PROCESS QUEUE */
 
@@ -51,17 +53,6 @@ void move_to_back(struct queue *q);
 
 
 
-
-/* returns relevant data for processing */
-struct results {
-	int pc;
-	int t;
-	int timer;
-	struct process* current;
-};
-
-
-
 /*FIFO */
 
 void fifo(struct process *p[], int num_processes);
@@ -70,5 +61,8 @@ void fifo(struct process *p[], int num_processes);
 /* ROUND ROBIN */
 
 void rr(struct process *p[], int num_processes);
+
+/* LOTTERY */
+void lottery(struct process *p[], int num_processes);
 
 #endif

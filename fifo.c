@@ -47,6 +47,9 @@ void fifo(struct process *p[], int num_processes) {
 
 	printf("Made it out alive!\n");
 
+	calculate_metrics(results_array, p, pc, num_processes);
+	
+	calculate_metrics_groups(results_array, p, pc, num_processes, 80);
 
 	//TODO: remember to free allocated memory!
 	for(int i=0; i<num_processes; i++) {

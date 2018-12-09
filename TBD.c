@@ -140,7 +140,7 @@ int main(int argc, char* argv[]) {
 			break;
 		case 3:
 			printf("Lottery Scheduling Policy\n");
-			//TODO
+			lottery(p, num_processes);
 			break;
 		case 4:
 			printf("Foreground-Background Policy\n");
@@ -187,7 +187,7 @@ void read_process(struct process *proc[], FILE *file, int num_processes) {
   					proc[i]->CPU_time = temp;
   					break;
   				case 2:
-  					proc[i]->priority = temp;
+  					proc[i]->tix = temp;
   					break;
   				case 3:
   					proc[i]->num_io = temp;
@@ -238,7 +238,8 @@ void gen_process(struct process *proc, int i, struct parameters param, int num_p
 
 	
     proc->time_counter = 0;
-    proc->priority = 50;
+    //TODO @@@@@@@@@@@@@@@@@@@@@@@@@@ Implement different policies for assigning tickets
+    proc->tix = rand()%100 + 1;
 	
     int num_io = proc->CPU_time/io_time;
     num_io = num_io*param.io_freq/100;

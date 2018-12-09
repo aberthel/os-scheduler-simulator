@@ -79,10 +79,152 @@ void print_array_to_file(int* array[], int l, char* file_name, int num_processes
 		
 		fprintf(file, "\n");
 	} 
+	fclose(file);
+}
 
+void calculate_metrics(int* results[], struct process *p[], int length, int num_processes) {
+	
+	int tt[num_processes]; //turnaround time
+	int rt[num_processes]; //response time
+	int wt[num_processes]; //wait time
+	
+	//for averages
+	int avg_t = 0;
+	int avg_r = 0;
+	int avg_w = 0;
+	
+	
+	for(int i=0; i<num_processes; i++) {
+		int enter = -1; //time at which the process enters the system
+		int first_run = -1; //time at which the process is first run
+		int exit = -1; //time at which the process exits the system
+		
+		for(int j=0; j<length; j++) {
+			if(enter==-1 && results[p[i]->id][j]>0) {
+				enter = j;
+			}
+			if(first_run==-1 && results[p[i]->id][j] == 3) {
+				first_run = j;
+			}
+			if(exit==-1 && results[p[i]->id][j]==4) {
+				exit = j;
+				break;
+			}
+		}
+		//handles if process is last to run
+		if(exit == -1) {
+			exit = length;
+		}
+		
+		/*
+		printf("Process %d\n", i);
+		printf("Turnaround time: %d\n", exit-enter);
+		printf("Response time: %d\n", first_run-enter);
+		printf("Wait time: %d\n\n", exit-first_run);
+		*/
+		tt[p[i]->id] = exit-enter;
+		rt[p[i]->id] = first_run-enter;
+		wt[p[i]->id] = (exit-enter)-p[i]->CPU_time;
+		
+		avg_t += tt[p[i]->id];
+		avg_r += rt[p[i]->id];
+		avg_w += wt[p[i]->id];
+	}
+	
+	//calculate averages
+	double avg_t1 = ((double) avg_t)/num_processes;
+	double avg_r1 = ((double) avg_r)/num_processes;
+	double avg_w1 = ((double) avg_w)/num_processes;
+	
+	printf("Averages:\n");
+	printf("Turnaround time: %lf\n", avg_t1);
+	printf("Response time: %lf\n", avg_r1);
+	printf("Wait time: %lf\n\n", avg_w1);
+	
+	
+	
 }
 
 
+void calculate_metrics_groups(int* results[], struct process *p[], int length, int num_processes, int sep) {
+	
+	int tt[num_processes]; //turnaround time
+	int rt[num_processes]; //response time
+	int wt[num_processes]; //wait time
+	
+	//for averages
+	int avg_t_1 = 0;
+	int avg_r_1 = 0;
+	int avg_w_1 = 0;
+	//for averages
+	int avg_t_2 = 0;
+	int avg_r_2 = 0;
+	int avg_w_2 = 0;
+	
+	
+	for(int i=0; i<num_processes; i++) {
+		int enter = -1; //time at which the process enters the system
+		int first_run = -1; //time at which the process is first run
+		int exit = -1; //time at which the process exits the system
+		
+		for(int j=0; j<length; j++) {
+			if(enter==-1 && results[p[i]->id][j]>0) {
+				enter = j;
+			}
+			if(first_run==-1 && results[p[i]->id][j] == 3) {
+				first_run = j;
+			}
+			if(exit==-1 && results[p[i]->id][j]==4) {
+				exit = j;
+				break;
+			}
+		}
+		//handles if process is last to run
+		if(exit == -1) {
+			exit = length;
+		}
+		
+		/*
+		printf("Process %d\n", i);
+		printf("Turnaround time: %d\n", exit-enter);
+		printf("Response time: %d\n", first_run-enter);
+		printf("Wait time: %d\n\n", exit-first_run);
+		*/
+		tt[p[i]->id] = exit-enter;
+		rt[p[i]->id] = first_run-enter;
+		wt[p[i]->id] = (exit-enter)-p[i]->CPU_time;
+		
+		if(p[i]->id < sep) {
+			avg_t_1 += tt[p[i]->id];
+			avg_r_1 += rt[p[i]->id];
+			avg_w_1 += wt[p[i]->id];
+		} else {
+			avg_t_2 += tt[p[i]->id];
+			avg_r_2 += rt[p[i]->id];
+			avg_w_2 += wt[p[i]->id];
+		}
+	}
+	
+	//calculate averages
+	double avg_t1 = ((double) avg_t_1)/sep;
+	double avg_r1 = ((double) avg_r_1)/sep;
+	double avg_w1 = ((double) avg_w_1)/sep;
+	
+	double avg_t2 = ((double) avg_t_2)/(num_processes-sep);
+	double avg_r2 = ((double) avg_r_2)/(num_processes-sep);
+	double avg_w2 = ((double) avg_w_2)/(num_processes-sep);
+	
+	printf("Averages group 1:\n");
+	printf("Turnaround time: %lf\n", avg_t1);
+	printf("Response time: %lf\n", avg_r1);
+	printf("Wait time: %lf\n\n", avg_w1);
+	
+	printf("Averages group 2:\n");
+	printf("Turnaround time: %lf\n", avg_t2);
+	printf("Response time: %lf\n", avg_r2);
+	printf("Wait time: %lf\n\n", avg_w2);
+	
+}
 
 
 void print_process_status(struct process *p[], int np) {
@@ -92,7 +234,7 @@ void print_process_status(struct process *p[], int np) {
     
     printf("Enters system at %d\n", p[i]->enter_time);
     printf("Total CPU time: %d\n", p[i]->CPU_time);
-    printf("Priority: %d\n", p[i]->priority);
+    printf("Number of tickets: %d\n", p[i]->tix);
    
    
     printf("I/O request times: ");
@@ -125,4 +267,6 @@ int processes_completed(struct process *p[], int num_processes) {
 	}
 	return 1;
 }
+
+
 
