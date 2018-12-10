@@ -7,7 +7,7 @@
 
 
 struct node* make_new_node(struct process *p) {
-	struct node *n = calloc(1, sizeof(struct node*));
+	struct node *n = calloc(1, sizeof(struct node));
 	n->data = p;
 	return n;
 }

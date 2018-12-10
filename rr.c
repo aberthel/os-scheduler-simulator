@@ -30,8 +30,8 @@ void rr(struct process *p[], int num_processes) {
 	//this makes it easier to determine what to add onto the queue next
 	selection_sort(p, num_processes);
 	
-	struct queue *q = calloc(1, sizeof(struct queue*));
-	struct queue *blocked =calloc(1, sizeof(struct queue*));
+	struct queue *q = calloc(1, sizeof(struct queue));
+	struct queue *blocked =calloc(1, sizeof(struct queue));
 	
 	int pc = 0; //keeps track of the processes that have entered
 	int start_time = 0;
@@ -61,9 +61,9 @@ void rr(struct process *p[], int num_processes) {
 
 	printf("Made it out alive!\n");
 
-	//calculate_metrics(results_array, p, r.t, num_processes);
+	calculate_metrics(results_array, p, r.t, num_processes);
 	
-	calculate_metrics_groups(results_array, p, r.t, num_processes, 80);
+	//calculate_metrics_groups(results_array, p, r.t, num_processes, 80);
 
 	//TODO: remember to free allocated memory!
 	for(int i=0; i<num_processes; i++) {

@@ -144,7 +144,7 @@ int main(int argc, char* argv[]) {
 			break;
 		case 4:
 			printf("Foreground-Background Policy\n");
-			//TODO
+			fb(p, num_processes);
 			break;
 		default:
 			printf("Couldn't find a policy to use.\n");
