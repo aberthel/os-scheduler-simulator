@@ -124,8 +124,8 @@ int main(int argc, char* argv[]) {
   	
   	file = NULL;
 	
-	printf("Processes to run:\n\n");
-	print_process_status(p, num_processes);
+	//printf("Processes to run:\n\n");
+	//print_process_status(p, num_processes);
 	
 	//RUN THE POLICY
 	

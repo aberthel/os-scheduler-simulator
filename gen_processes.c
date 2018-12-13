@@ -12,6 +12,7 @@ struct parameters {
 	int min_enter;
 	int max_enter;
 	int io_freq;
+	int tix_gen;
 };
 
 char* file_name;
@@ -28,7 +29,7 @@ int main(int argc, char* argv[]) {
   	int counter = 0; //keeps track of the arguments that have been processed
 
 	//set default parameter values 
-	struct parameters param = {10, 100, 0, 100, 50};
+	struct parameters param = {10, 100, 0, 100, 50, 0};
 	
   
   //loop through arguments to parse them
@@ -68,6 +69,11 @@ int main(int argc, char* argv[]) {
 			check_digit(argv[counter]);
      		int temp = atoi(argv[counter]);
 			param.io_freq = temp;
+    	} else if(strcmp(arg, "-tix") == 0) {
+    		counter++;
+    		check_digit(argv[counter]);
+     		int temp = atoi(argv[counter]);
+     		param.tix_gen = temp; // 0 for random, 1 for io, 2 for prioritizing short jobs
     	} else {
     		if(counter != 0) {
     			file_name = argv[counter];
@@ -116,7 +122,6 @@ void gen_process(struct process *proc, int i, struct parameters param, int num_p
 
 	
     proc->time_counter = 0;
-    proc->priority = 50;
 	
     int num_io = proc->CPU_time/io_time;
     num_io = num_io*param.io_freq/100;
@@ -134,6 +139,34 @@ void gen_process(struct process *proc, int i, struct parameters param, int num_p
     }
 
     proc->io_times = pointer;
+    
+    
+    if(param.tix_gen == 0) { //random
+    	int x = rand()%100;
+    	proc->tix = x;
+    } else if(param.tix_gen == 1) { //scales linearly with io
+    	int x = proc->num_io * 10 + 10; //keeps no io processes from having 0 tickets
+    	proc->tix = x;
+    } else if(param.tix_gen == 2) { //scales inversely with CPU time
+    	// NOTE: needs to have some randomness to simulate uncertainty in "estimate"
+    	   	
+    	int x = param.max_CPU - proc->CPU_time + 5; //keeps longest processes from having 0 tickets
+    	
+    	int div = param.max_CPU/20; //restricts to +/- 5% of maximum
+    	
+    	if(rand()%2) { //add
+    		x = x + rand()%div;
+    	} else { //subtract
+    		x = x-rand()%div;
+    		if(x < 1) { //estimate should not make tickets less than 1
+    			x = 5;
+    		}
+    	}
+    	
+    	
+    	proc->tix = x;
+    	
+    }
 
 }
 
@@ -149,7 +182,7 @@ void write_processes(struct process *p[], int num_processes) {
 		fprintf(file, "Process %d\n", i);
 		fprintf(file, "Enter %d\n", proc->enter_time);
 		fprintf(file, "CPU %d\n", proc->CPU_time);
-		fprintf(file, "Priority %d\n", proc->priority);
+		fprintf(file, "Priority %d\n", proc->tix);
 		fprintf(file, "NumIO %d\n", proc->num_io);
 		fprintf(file, "IO");
 		for(int j=0; j<proc->num_io; j++) {

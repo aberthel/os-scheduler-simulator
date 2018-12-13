@@ -5,7 +5,8 @@
 
 /* FIRST IN FIRST OUT */
 
-int fifo_process(struct process *p[], int* results_array[], int pc, int time_start, int time_estimate, int num_processes);
+
+int fifo_process(struct process *p[], int* results_array[], struct queue *q, int pc, int time_start, int time_estimate, int num_processes);
 
 void fifo(struct process *p[], int num_processes) {
 	int time_estimate = estimate_time(p, num_processes);
@@ -20,13 +21,15 @@ void fifo(struct process *p[], int num_processes) {
 	//sort processes by enter time
 	selection_sort(p, num_processes);
 
+	struct queue *q = calloc(1, sizeof(struct queue));
 	
 	//keeps track of the process currently being run
 	int pc = 0;
 	int start_time = 0;
 	int end_time = time_estimate;
 
-	pc = fifo_process(p, results_array, pc, start_time, end_time, num_processes);
+	
+	pc = fifo_process(p, results_array, q, pc, start_time, end_time, num_processes);
 	
 	
 	//handles "time over"
@@ -39,7 +42,7 @@ void fifo(struct process *p[], int num_processes) {
 		for(int i=0; i<num_processes; i++) {
 			results_array[i] = realloc(results_array[i], sizeof(int)*end_time);
 		}
-		pc = fifo_process(p, results_array, pc, start_time, end_time, num_processes);
+		pc = fifo_process(p, results_array, q, pc, start_time, end_time, num_processes);
 	}
 		
 	
@@ -49,7 +52,6 @@ void fifo(struct process *p[], int num_processes) {
 
 	calculate_metrics(results_array, p, pc, num_processes);
 	
-	calculate_metrics_groups(results_array, p, pc, num_processes, 80);
 
 	//TODO: remember to free allocated memory!
 	for(int i=0; i<num_processes; i++) {
@@ -58,70 +60,95 @@ void fifo(struct process *p[], int num_processes) {
 	}  
 }
 
+int fifo_process(struct process *p[], int* results_array[], struct queue *q, int pc, int time_start, int time_estimate, int num_processes) {
 
-int fifo_process(struct process *p[], int* results_array[], int pc, int time_start, int time_estimate, int num_processes) {
 	int t;
+	
+	struct process* current = NULL;
+	
 	for(t=time_start; t<time_estimate; t++) {
+		//printf("Time %d\n", t);
 		if(processes_completed(p, num_processes) == 1) {
 			break;
 		}
 		
 		//place newly entered processes in the ready list
-		int counter = pc;
-		
-		while(counter < num_processes && p[counter]->enter_time <= t) {
-		
-			if(p[counter]->status == 0) {
-				p[counter]->status = 1;
+		//AND at the back of the queue
+		while(pc < num_processes && p[pc]->enter_time <= t) {
+			//printf("Loop\n");
+			if(p[pc]->status == 0) {
+				//printf("status to 1\n");
+				p[pc]->status = 1;
+				enqueue(p[pc], q);
 			}
-			counter ++;
+			pc ++;
 		}
 		
-		//set next process's status to running if it is running
-		if(p[pc]->status == 1) {
-			p[pc]->status = 3;
+		
+		
+		//if there's no process running currently, then get one from the queue
+		if(current == NULL && q->front != NULL) {
+			current = q->front->data;
+			
+			if(current->status == 1) {
+				current->status = 3;
+			}
+		
 		}
 		
-		//set process status to blocked if time for io
-		if(p[pc]->status ==3 && is_io_time(p[pc])) {
-			p[pc]->status =2;
-			p[pc]->io_timer=0;
-		}
 		
-		//if io is finished, then set status to running again
-		if(p[pc]->status == 2 && p[pc]->io_timer == io_time) {
-			p[pc]->status = 3;
-		}
 		
 		//if CPU time is over, then set status to finished and increment counter
-		if(p[pc]->status == 3 && p[pc]->time_counter == p[pc]->CPU_time) {
-			p[pc]->status = 4;
-			pc ++;
-			if(p[pc]->status == 1) {
-				p[pc]->status = 3;
+		if(current != NULL && current->time_counter == current->CPU_time) {
+			current->status = 4;
+			
+			dequeue(q);
+			current = NULL;
+			
+			if(q->front != NULL) {
+				current = q->front->data;
+				current->status=3;
+			}
+
+		}
+		
+		if(current != NULL && is_io_time(current) && current->status ==3) {
+			current->status =2;
+			current->io_timer=0;
+		} 
+		
+		
+		if(current!= NULL && current->status ==2) {
+			if (current->io_timer == io_time) {
+				current->status = 3;
+			} else {
+				current->io_timer++;
 			}
 		}
 		
+		
+		
+		
 		//increment time counters
-		if(p[pc]->status == 3) {
-			p[pc]->time_counter++;
+		if(current != NULL && current->status ==3) {
+			current->time_counter++;
 		}
 		
-		if(p[pc]->status == 2) {
-			p[pc]->io_timer ++;
-		}
 		
+		//save statuses at this time to file
 		for(int i=0; i<num_processes; i++) {
 			results_array[p[i]->id][t] = p[i]->status;
-		}
-		
+		}	
 	}
+
+	//return t;
 	
 	if(processes_completed(p, num_processes) == 1) {
 		return t;
 	} else {
 		return pc;
-	}
+	} 
+	
 
 }
 

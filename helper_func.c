@@ -124,7 +124,7 @@ void calculate_metrics(int* results[], struct process *p[], int length, int num_
 		*/
 		tt[p[i]->id] = exit-enter;
 		rt[p[i]->id] = first_run-enter;
-		wt[p[i]->id] = (exit-enter)-p[i]->CPU_time;
+		wt[p[i]->id] = (exit-enter)-p[i]->CPU_time -(io_time*p[i]->num_io);
 		
 		avg_t += tt[p[i]->id];
 		avg_r += rt[p[i]->id];
@@ -138,8 +138,9 @@ void calculate_metrics(int* results[], struct process *p[], int length, int num_
 	
 	printf("Averages:\n");
 	printf("Turnaround time: %lf\n", avg_t1);
-	printf("Response time: %lf\n", avg_r1);
-	printf("Wait time: %lf\n\n", avg_w1);
+	printf("Wait time: %lf\n", avg_w1);
+	printf("Response time: %lf\n\n", avg_r1);
+	
 	
 	
 	
@@ -216,13 +217,13 @@ void calculate_metrics_groups(int* results[], struct process *p[], int length, i
 	
 	printf("Averages group 1:\n");
 	printf("Turnaround time: %lf\n", avg_t1);
-	printf("Response time: %lf\n", avg_r1);
-	printf("Wait time: %lf\n\n", avg_w1);
+	printf("Wait time: %lf\n", avg_w1);
+	printf("Response time: %lf\n\n", avg_r1);
 	
 	printf("Averages group 2:\n");
 	printf("Turnaround time: %lf\n", avg_t2);
-	printf("Response time: %lf\n", avg_r2);
-	printf("Wait time: %lf\n\n", avg_w2);
+	printf("Wait time: %lf\n", avg_w2);
+	printf("Response time: %lf\n\n", avg_r2);
 	
 }
 

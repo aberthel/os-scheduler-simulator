@@ -64,9 +64,9 @@ void lottery(struct process *p[], int num_processes) {
 
 	printf("Made it out alive!\n");
 
-	calculate_metrics(results_array, p, r.t, num_processes);
+	//calculate_metrics(results_array, p, r.t, num_processes);
 	
-	//calculate_metrics_groups(results_array, p, r.t, num_processes, 80);
+	calculate_metrics_groups(results_array, p, r.t, num_processes, 80);
 
 	//TODO: remember to free allocated memory!
 	for(int i=0; i<num_processes; i++) {
@@ -80,128 +80,6 @@ struct results lottery_process(struct process *p[], int* results_array[], struct
 	int timer = time;
 	struct process *current = c;
 	int total_tix = ttix;
-	
-	/*
-	for(t=time_start; t<time_estimate; t++) {
-		
-		if(processes_completed(p, num_processes) == 1) {
-			break;
-		}
-		
-		//place newly entered processes in the ready list
-		//AND at the back of the queue
-		while(pc < num_processes && p[pc]->enter_time <= t) {
-		
-			if(p[pc]->status == 0) {
-				p[pc]->status = 1;
-				enqueue(p[pc], q);
-			}
-			pc ++;
-		}
-		
-		//if there's no process running currently, then get one from the queue
-		if(current == NULL) {
-			current = dequeue(q);
-			timer=time_slice;
-			
-			if(current != NULL) {
-				current->status = 3;
-			}
-		
-		}
-		
-		
-		if(current != NULL && current->status == 3) { //if front of queue is able to run
-			
-			//set process status to blocked if time for io
-			if(is_io_time(current)) {
-				//printf("Process %d to io\n", current->id);
-				//printf("Process time: %d\n", current->time_counter);
-				current->status =2;
-				current->io_timer=0;
-				enqueue(current, blocked);
-			
-				//enqueue(current, q); //send to back of list
-			
-				current = dequeue(q);
-				timer = time_slice;
-				if(current != NULL && current->status == 1) {
-					current->status = 3;
-				}
-			} 
-			
-			//if CPU time is over, then set status to finished and increment counter
-			if(current != NULL && current->time_counter == current->CPU_time) {
-				current->status = 4;
-			
-				current = dequeue(q);
-				if(current != NULL && current->status ==1) {
-					current->status=3;
-				}
-				timer = time_slice;
-
-			}
-			
-			
-			//if time slice is over, then put current running status to back
-			if(timer == 0) {
-				
-				enqueue(current, q);
-				current-> status = 1;
-				current = dequeue(q);
-				if(current != NULL && current->status ==1) {
-					current->status=3;
-				}
-				timer = time_slice;
-								
-			}
-			
-		
-		}
-		
-		
-		if(blocked->front != NULL) {
-			
-			while(blocked->front != NULL && blocked->front->data->io_timer == io_time) {
-				//blocked->front->data->status = 1;
-				struct process *a = dequeue(blocked);
-				a->status = 1;
-				enqueue(a, q);
-				if(q->front->data == a && current == NULL) {
-					current = dequeue(q);
-					current->status = 3;
-					//printf("Process %d running\n", a->id);
-				}
-				
-			}
-		
-			struct node* n = blocked->front;
-			
-			while(n != NULL) {
-				n->data->io_timer++;
-				n = n->next;
-			}
-			
-		
-		}
-		
-		
-		//increment time counters
-		if(current != NULL && current->status ==3) {
-			current->time_counter++;
-			//printf("Process %d: time %d\n", current->id, current->time_counter);
-			timer --;
-		}
-		
-		
-		//save statuses at this time to file
-		for(int i=0; i<num_processes; i++) {
-			results_array[p[i]->id][t] = p[i]->status;
-		}
-	
-		
-	} */
-	
 	
 	
 	for(t=start_time; t<time_estimate; t++) {

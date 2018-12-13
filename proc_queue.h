@@ -65,4 +65,7 @@ void rr(struct process *p[], int num_processes);
 /* LOTTERY */
 void lottery(struct process *p[], int num_processes);
 
+/* FOREGROUND BACKGROUND */
+void fb(struct process *p[], int num_processes);
+
 #endif

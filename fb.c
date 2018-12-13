@@ -11,7 +11,7 @@ struct results {
 	int pc;
 	int t;
 	int timer;
-	struct process* current;
+	struct ll_node* current;
 };
 
 
@@ -31,8 +31,8 @@ void move_older(struct linked_list *ll, struct ll_node *n);
 struct ll_node* make_new_ll_node(struct process *p);
 void print_ll(struct linked_list *ll);
 void remove_from_ll(struct linked_list *ll, struct ll_node* n);
-//struct results fb_process(struct process *p[], int* results_array[], struct process *c, struct queue *q, struct queue *blocked, int pc, int time_start, int time_estimate, int time, int num_processes);
 
+struct results fb_process(struct process *p[], int* results_array[], struct ll_node *c, struct linked_list *ll, struct queue *blocked, int pc, int time_start, int time_estimate, int time, int num_processes);
 
 void fb(struct process *p[], int num_processes) {
 	int time_estimate = estimate_time(p, num_processes);
@@ -55,17 +55,50 @@ void fb(struct process *p[], int num_processes) {
 	int end_time = time_estimate;
 	int timer = time_slice; //counts down time slice
 	
-	//int t;
-	struct ll_node* current = NULL;
 
-	//struct results r = rr_process(p, results_array, current, q, blocked, pc, start_time, end_time, timer, num_processes);
+	struct ll_node* current = NULL;
 	
-	//BEGIN
+	
+	struct results r = fb_process(p, results_array, current, ll, blocked, pc, start_time, end_time, timer, num_processes);
+	
+	
+	
+	//handles "time over"
+	while(processes_completed(p, num_processes) == 0) {
+		printf("NOT FINISHED\n");
+		start_time += time_estimate;
+		end_time += time_estimate;
+			
+		//increase size of results array
+		for(int i=0; i<num_processes; i++) {
+			results_array[i] = realloc(results_array[i], sizeof(int)*end_time);
+		}
+		r = fb_process(p, results_array, r.current, ll, blocked, r.pc, start_time, end_time, r.timer, num_processes);
+	} 
 		
+	print_array_to_file(results_array, r.t, "fb.csv", num_processes);
+
+	printf("Made it out alive!\n");
+
+	//calculate_metrics(results_array, p, r.t, num_processes);
 	
+	calculate_metrics_groups(results_array, p, r.t, num_processes, 80);
+
+	//TODO: remember to free allocated memory!
+	for(int i=0; i<num_processes; i++) {
+		free(results_array[i]);
+		results_array[i] = NULL;
+	}  
+
+}
+
+
+struct results fb_process(struct process *p[], int* results_array[], struct ll_node *c, struct linked_list *ll, struct queue *blocked, int pc, int time_start, int time_estimate, int time, int num_processes) {
+	struct ll_node *current = c;
 	int t;
+	int timer = time;
 	
-	for(t=start_time; t<time_estimate; t++) {
+	for(t=time_start; t<time_estimate; t++) {
 		
 		if(processes_completed(p, num_processes) == 1) {
 			break;
@@ -75,11 +108,11 @@ void fb(struct process *p[], int num_processes) {
 		//AND at the back of the queue
 		while(pc < num_processes && p[pc]->enter_time <= t) {
 			if(p[pc]->status == 0) {
-				printf("Process %d entered\n", p[pc]->id);
+				//printf("Process %d entered\n", p[pc]->id);
 				p[pc]->status = 1;
 				add_to_front(ll, p[pc]);
-				print_ll(ll);
-				printf("\n");
+				//print_ll(ll);
+				//printf("\n");
 				
 			}
 			pc ++;
@@ -115,11 +148,11 @@ void fb(struct process *p[], int num_processes) {
 		//if CPU time is over, then set status to finished and increment counter
 		if(current != NULL && current->data->time_counter == current->data->CPU_time) {
 			current->data->status = 4;
-			printf("Process %d completed\n", current->data->id);
+			//printf("Process %d completed\n", current->data->id);
 			remove_from_ll(ll, current);
 			
-			print_ll(ll);
-			printf("\n");
+			//print_ll(ll);
+			//printf("\n");
 			
 			current = ll->front;
 			timer = time_slice;
@@ -181,44 +214,10 @@ void fb(struct process *p[], int num_processes) {
 	
 		
 	}
+	struct results r = {pc, t, timer, current};
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	//END
-	
-	/*
-	//handles "time over"
-	while(processes_completed(p, num_processes) == 0) {
-		printf("NOT FINISHED\n");
-		start_time += time_estimate;
-		end_time += time_estimate;
-			
-		//increase size of results array
-		for(int i=0; i<num_processes; i++) {
-			results_array[i] = realloc(results_array[i], sizeof(int)*end_time);
-		}
-		r = rr_process(p, results_array, r.current, q, blocked, r.pc, start_time, end_time, r.timer, num_processes);
-	} */
-		
-	print_array_to_file(results_array, t, "fb.csv", num_processes);
+	return r;
 
-	printf("Made it out alive!\n");
-
-	calculate_metrics(results_array, p, t, num_processes);
-	
-	//calculate_metrics_groups(results_array, p, r.t, num_processes, 80);
-
-	//TODO: remember to free allocated memory!
-	for(int i=0; i<num_processes; i++) {
-		free(results_array[i]);
-		results_array[i] = NULL;
-	}  
 
 }
 
@@ -227,7 +226,7 @@ void print_ll(struct linked_list *ll) {
 	struct ll_node *n = ll-> front;
 	
 	while(n != NULL) {
-		printf("Process %d\n", n->data->id);
+		//printf("Process %d\n", n->data->id);
 		n = n->next;
 	}
 }
@@ -278,7 +277,6 @@ void remove_from_ll(struct linked_list *ll, struct ll_node* n) {
 			n->next->prev = n->prev;
 		}
 		
-		struct process *proc = n->data;
 		free(n);
 	} 
 	
