@@ -109,8 +109,8 @@ int main(int argc, char* argv[]) {
   	}
 
 
-  //create processes based off of the list given
-  struct process *p[num_processes];
+  	//create processes based off of the list given
+  	struct process *p[num_processes];
 
 	//no process file has been specified: randomly generate processes
 	if(process_file == 0) {
@@ -119,12 +119,13 @@ int main(int argc, char* argv[]) {
     		gen_process(p[i], i, param, num_processes);
   		}
   	} else { //processes have been specified by file
-  		read_process(p, file, num_processes); //TODO #############
+  		read_process(p, file, num_processes); 
   	}
   	
+
   	file = NULL;
-	
-	//printf("Processes to run:\n\n");
+
+	printf("Processes to run:\n\n");
 	//print_process_status(p, num_processes);
 	
 	//RUN THE POLICY
@@ -150,18 +151,25 @@ int main(int argc, char* argv[]) {
 			printf("Couldn't find a policy to use.\n");
 	}
 	
+
+	for(int i=0; i<num_processes; i++) {
+		free(p[i]->io_times);
+		free(p[i]);
+		p[i] = NULL;
+	}
 	
 }
 
 void read_process(struct process *proc[], FILE *file, int num_processes) {
+	
 	char buffer[255];
   	char *string;
   		
   	fgets(buffer, 255, file);
   	string = strtok(buffer, " ");
-  		
-  	for(int i=0; i<num_processes; i++) {
   	
+  	for(int i=0; i<num_processes; i++) {
+  		
   		proc[i] = malloc(sizeof(struct process));
   		
   		//get to next process description
@@ -194,26 +202,26 @@ void read_process(struct process *proc[], FILE *file, int num_processes) {
   					break;
   			}
   		}
-  			
+  		
   		//get line with IO numbers on it
   		fgets(buffer, 255, file);
   		string = strtok(buffer, " ");
   			
   		int* pointer = malloc(sizeof(int[proc[i]->num_io]));
   			
-  			for(int j=0; j<proc[i]->num_io; j++) {
-    		string = strtok(NULL, " \n");
-    		check_digit(string); 			
-    		int x = atoi(string);
-      		pointer[j] = x;
-    	}
+  		for(int j=0; j<proc[i]->num_io; j++) {
+    			string = strtok(NULL, " \n");
+    			check_digit(string); 			
+    			int x = atoi(string);
+      			pointer[j] = x;
+    		}
 
-    	proc[i]->io_times = pointer;
+    		proc[i]->io_times = pointer;
     		
-    	proc[i]->time_counter = 0;
-    	proc[i]->status = 0;
-    	proc[i]->io_timer = 0;
-
+    		proc[i]->time_counter = 0;
+    		proc[i]->status = 0;
+    		proc[i]->io_timer = 0;
+	
   	} 
   	fclose(file); 
 }

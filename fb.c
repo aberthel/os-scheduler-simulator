@@ -90,6 +90,15 @@ void fb(struct process *p[], int num_processes) {
 		results_array[i] = NULL;
 	}  
 
+	while(ll->front != NULL) {
+		remove_from_ll(ll, ll->front);
+	}
+
+	free(ll);
+	ll=NULL;
+	free(blocked);
+	blocked = NULL;
+
 }
 
 
@@ -241,7 +250,7 @@ void add_to_front(struct linked_list *ll, struct process *proc) {
 	} else {
 		n->next = ll->front;
 		ll->front->prev = n;
-		ll->front = n; //FOR SOME REASON this keeps messing with the first two values of results array...
+		ll->front = n; 
 	}  
 	
 	move_older(ll, n);

@@ -9,6 +9,7 @@
 int fifo_process(struct process *p[], int* results_array[], struct queue *q, int pc, int time_start, int time_estimate, int num_processes);
 
 void fifo(struct process *p[], int num_processes) {
+	
 	int time_estimate = estimate_time(p, num_processes);
 	
 	//make array to store process running data
@@ -16,11 +17,11 @@ void fifo(struct process *p[], int num_processes) {
 	
 	for(int i=0; i<num_processes; i++) {
 		results_array[i] = calloc(time_estimate, sizeof(int));
-	}
+	} 
 	
 	//sort processes by enter time
 	selection_sort(p, num_processes);
-
+	
 	struct queue *q = calloc(1, sizeof(struct queue));
 	
 	//keeps track of the process currently being run
@@ -52,12 +53,19 @@ void fifo(struct process *p[], int num_processes) {
 
 	calculate_metrics(results_array, p, pc, num_processes);
 	
-
+	
 	//TODO: remember to free allocated memory!
 	for(int i=0; i<num_processes; i++) {
 		free(results_array[i]);
 		results_array[i] = NULL;
-	}  
+	} 
+
+	while(q->front != NULL) {
+		dequeue(q);
+	}	
+
+	free(q);
+	q = NULL; 
 }
 
 int fifo_process(struct process *p[], int* results_array[], struct queue *q, int pc, int time_start, int time_estimate, int num_processes) {

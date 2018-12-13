@@ -70,6 +70,16 @@ void rr(struct process *p[], int num_processes) {
 		free(results_array[i]);
 		results_array[i] = NULL;
 	}  
+
+	while(q->front != NULL) {
+		dequeue(q);
+	}	
+
+	free(q);
+	q = NULL; 
+
+	free(blocked);
+	blocked = NULL;
 }
 
 struct results rr_process(struct process *p[], int* results_array[], struct process *c, struct queue *q, struct queue *blocked, int pc, int time_start, int time_estimate, int time, int num_processes) {

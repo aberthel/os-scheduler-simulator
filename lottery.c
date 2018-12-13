@@ -73,6 +73,9 @@ void lottery(struct process *p[], int num_processes) {
 		free(results_array[i]);
 		results_array[i] = NULL;
 	}  
+	
+	free(blocked);
+	blocked = NULL;
 }
 
 struct results lottery_process(struct process *p[], int* results_array[], struct process *c, struct queue *blocked, int pc, int start_time, int time_estimate, int time, int num_processes, int ttix) {
