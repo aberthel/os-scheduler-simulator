@@ -1,0 +1,701 @@
+process_num: 100
+
+Process 0
+Enter 1807
+CPU 749
+Priority 212
+NumIO 3
+IO 744 419 195
+
+Process 1
+Enter 878
+CPU 923
+Priority 45
+NumIO 4
+IO 685 153 49 596
+
+Process 2
+Enter 2503
+CPU 827
+Priority 187
+NumIO 4
+IO 826 273 222 219
+
+Process 3
+Enter 2157
+CPU 560
+Priority 429
+NumIO 2
+IO 213 139
+
+Process 4
+Enter 335
+CPU 597
+Priority 418
+NumIO 2
+IO 389 140
+
+Process 5
+Enter 2633
+CPU 979
+Priority 5
+NumIO 4
+IO 811 227 948 678
+
+Process 6
+Enter 4336
+CPU 985
+Priority 21
+NumIO 4
+IO 765 443 481 564
+
+Process 7
+Enter 1153
+CPU 708
+Priority 251
+NumIO 3
+IO 640 280 338
+
+Process 8
+Enter 4530
+CPU 903
+Priority 105
+NumIO 4
+IO 880 49 768 185
+
+Process 9
+Enter 977
+CPU 908
+Priority 110
+NumIO 4
+IO 804 665 342 97
+
+Process 10
+Enter 3865
+CPU 814
+Priority 235
+NumIO 4
+IO 343 716 401 67
+
+Process 11
+Enter 629
+CPU 501
+Priority 508
+NumIO 2
+IO 368 224
+
+Process 12
+Enter 4451
+CPU 798
+Priority 205
+NumIO 3
+IO 480 197 725
+
+Process 13
+Enter 1566
+CPU 716
+Priority 336
+NumIO 3
+IO 37 426 200
+
+Process 14
+Enter 3871
+CPU 828
+Priority 173
+NumIO 4
+IO 785 62 721 441
+
+Process 15
+Enter 1609
+CPU 731
+Priority 232
+NumIO 3
+IO 656 656 64
+
+Process 16
+Enter 399
+CPU 968
+Priority 5
+NumIO 4
+IO 580 748 869 522
+
+Process 17
+Enter 968
+CPU 613
+Priority 377
+NumIO 3
+IO 98 33 567
+
+Process 18
+Enter 2082
+CPU 852
+Priority 154
+NumIO 4
+IO 811 633 531 844
+
+Process 19
+Enter 3590
+CPU 831
+Priority 145
+NumIO 4
+IO 707 552 784 419
+
+Process 20
+Enter 2335
+CPU 506
+Priority 518
+NumIO 2
+IO 294 48
+
+Process 21
+Enter 3454
+CPU 723
+Priority 259
+NumIO 3
+IO 394 20 259
+
+Process 22
+Enter 4506
+CPU 813
+Priority 176
+NumIO 4
+IO 647 75 490 501
+
+Process 23
+Enter 534
+CPU 726
+Priority 239
+NumIO 3
+IO 126 367 636
+
+Process 24
+Enter 1550
+CPU 659
+Priority 368
+NumIO 3
+IO 424 57 339
+
+Process 25
+Enter 539
+CPU 747
+Priority 278
+NumIO 3
+IO 279 343 319
+
+Process 26
+Enter 3144
+CPU 968
+Priority 26
+NumIO 4
+IO 391 563 833 830
+
+Process 27
+Enter 4679
+CPU 652
+Priority 311
+NumIO 3
+IO 120 399 574
+
+Process 28
+Enter 1815
+CPU 991
+Priority 39
+NumIO 4
+IO 981 920 143 186
+
+Process 29
+Enter 1210
+CPU 662
+Priority 368
+NumIO 3
+IO 521 62 491
+
+Process 30
+Enter 2335
+CPU 868
+Priority 106
+NumIO 4
+IO 11 452 235 407
+
+Process 31
+Enter 556
+CPU 801
+Priority 243
+NumIO 4
+IO 238 17 167 202
+
+Process 32
+Enter 1407
+CPU 515
+Priority 485
+NumIO 2
+IO 248 324
+
+Process 33
+Enter 1855
+CPU 506
+Priority 491
+NumIO 2
+IO 499 338
+
+Process 34
+Enter 3249
+CPU 831
+Priority 223
+NumIO 4
+IO 597 437 660 707
+
+Process 35
+Enter 203
+CPU 731
+Priority 283
+NumIO 3
+IO 607 165 199
+
+Process 36
+Enter 180
+CPU 929
+Priority 93
+NumIO 4
+IO 156 336 416 717
+
+Process 37
+Enter 2525
+CPU 700
+Priority 301
+NumIO 3
+IO 56 264 197
+
+Process 38
+Enter 550
+CPU 650
+Priority 359
+NumIO 3
+IO 526 512 404
+
+Process 39
+Enter 3381
+CPU 748
+Priority 286
+NumIO 3
+IO 429 338 583
+
+Process 40
+Enter 3553
+CPU 983
+Priority 48
+NumIO 4
+IO 972 270 366 811
+
+Process 41
+Enter 53
+CPU 724
+Priority 261
+NumIO 3
+IO 270 206 560
+
+Process 42
+Enter 285
+CPU 516
+Priority 496
+NumIO 2
+IO 446 111
+
+Process 43
+Enter 1576
+CPU 678
+Priority 313
+NumIO 3
+IO 414 473 283
+
+Process 44
+Enter 4819
+CPU 737
+Priority 235
+NumIO 3
+IO 296 572 299
+
+Process 45
+Enter 1197
+CPU 531
+Priority 501
+NumIO 2
+IO 293 231
+
+Process 46
+Enter 2304
+CPU 858
+Priority 177
+NumIO 4
+IO 600 76 488 265
+
+Process 47
+Enter 2730
+CPU 955
+Priority 15
+NumIO 4
+IO 636 802 83 110
+
+Process 48
+Enter 4857
+CPU 613
+Priority 374
+NumIO 3
+IO 222 298 486
+
+Process 49
+Enter 357
+CPU 585
+Priority 422
+NumIO 2
+IO 279 130
+
+Process 50
+Enter 1807
+CPU 89
+Priority 901
+NumIO 8
+IO 26 60 46 64 84 84 16 61
+
+Process 51
+Enter 4492
+CPU 72
+Priority 942
+NumIO 7
+IO 27 47 7 25 16 28 15
+
+Process 52
+Enter 2157
+CPU 50
+Priority 981
+NumIO 5
+IO 33 49 28 16 35
+
+Process 53
+Enter 3512
+CPU 47
+Priority 975
+NumIO 4
+IO 23 21 13 16
+
+Process 54
+Enter 672
+CPU 83
+Priority 930
+NumIO 8
+IO 19 46 36 52 21 79 74 0
+
+Process 55
+Enter 2944
+CPU 38
+Priority 964
+NumIO 3
+IO 2 12 6
+
+Process 56
+Enter 2722
+CPU 26
+Priority 982
+NumIO 2
+IO 19 6
+
+Process 57
+Enter 977
+CPU 28
+Priority 946
+NumIO 2
+IO 16 17
+
+Process 58
+Enter 3635
+CPU 53
+Priority 967
+NumIO 5
+IO 12 39 7 46 45
+
+Process 59
+Enter 94
+CPU 19
+Priority 1031
+NumIO 1
+IO 14
+
+Process 60
+Enter 105
+CPU 54
+Priority 949
+NumIO 5
+IO 27 24 12 35 5
+
+Process 61
+Enter 1566
+CPU 26
+Priority 978
+NumIO 2
+IO 25 12
+
+Process 62
+Enter 4897
+CPU 21
+Priority 957
+NumIO 2
+IO 17 20
+
+Process 63
+Enter 2397
+CPU 94
+Priority 901
+NumIO 9
+IO 76 75 63 49 11 48 22 73 10
+
+Process 64
+Enter 3557
+CPU 34
+Priority 1001
+NumIO 3
+IO 12 1 24
+
+Process 65
+Enter 1006
+CPU 52
+Priority 998
+NumIO 5
+IO 34 37 30 4 51
+
+Process 66
+Enter 4712
+CPU 61
+Priority 904
+NumIO 6
+IO 6 3 18 8 54 45
+
+Process 67
+Enter 679
+CPU 45
+Priority 964
+NumIO 4
+IO 16 17 28 15
+
+Process 68
+Enter 223
+CPU 89
+Priority 896
+NumIO 8
+IO 80 80 18 14 13 16 33 53
+
+Process 69
+Enter 2844
+CPU 26
+Priority 966
+NumIO 2
+IO 14 16
+
+Process 70
+Enter 3738
+CPU 74
+Priority 892
+NumIO 7
+IO 46 12 39 41 61 67 15
+
+Process 71
+Enter 4247
+CPU 55
+Priority 915
+NumIO 5
+IO 46 50 8 35 39
+
+Process 72
+Enter 4915
+CPU 25
+Priority 1009
+NumIO 2
+IO 9 17
+
+Process 73
+Enter 4152
+CPU 94
+Priority 958
+NumIO 9
+IO 61 30 14 38 73 73 51 11 93
+
+Process 74
+Enter 825
+CPU 90
+Priority 898
+NumIO 9
+IO 62 21 18 7 61 45 85 38 5
+
+Process 75
+Enter 2439
+CPU 14
+Priority 990
+NumIO 1
+IO 7
+
+Process 76
+Enter 3872
+CPU 90
+Priority 920
+NumIO 9
+IO 14 4 35 69 37 45 73 89 50
+
+Process 77
+Enter 2506
+CPU 73
+Priority 933
+NumIO 7
+IO 54 22 52 56 57 4 4
+
+Process 78
+Enter 4849
+CPU 73
+Priority 955
+NumIO 7
+IO 34 47 18 56 70 28 1
+
+Process 79
+Enter 4054
+CPU 20
+Priority 1010
+NumIO 2
+IO 17 5
+
+Process 80
+Enter 4200
+CPU 96
+Priority 913
+NumIO 9
+IO 92 21 24 72 14 30 88 68 58
+
+Process 81
+Enter 3381
+CPU 68
+Priority 984
+NumIO 6
+IO 21 66 39 45 61 41
+
+Process 82
+Enter 4607
+CPU 93
+Priority 877
+NumIO 9
+IO 29 18 18 32 22 73 56 81 15
+
+Process 83
+Enter 3016
+CPU 48
+Priority 941
+NumIO 4
+IO 27 45 5 32
+
+Process 84
+Enter 2357
+CPU 11
+Priority 975
+NumIO 1
+IO 10
+
+Process 85
+Enter 737
+CPU 93
+Priority 904
+NumIO 9
+IO 56 22 37 13 20 12 2 54 69
+
+Process 86
+Enter 1200
+CPU 74
+Priority 969
+NumIO 7
+IO 12 21 9 14 58 63 46
+
+Process 87
+Enter 0
+CPU 86
+Priority 954
+NumIO 8
+IO 37 5 27 18 3 54 68 62
+
+Process 88
+Enter 3729
+CPU 95
+Priority 913
+NumIO 9
+IO 43 92 92 23 54 22 37 20 3
+
+Process 89
+Enter 1748
+CPU 65
+Priority 943
+NumIO 6
+IO 18 59 61 50 9 57
+
+Process 90
+Enter 1897
+CPU 80
+Priority 951
+NumIO 8
+IO 30 31 0 43 60 40 53 58
+
+Process 91
+Enter 950
+CPU 14
+Priority 1023
+NumIO 1
+IO 8
+
+Process 92
+Enter 2574
+CPU 29
+Priority 986
+NumIO 2
+IO 23 22
+
+Process 93
+Enter 879
+CPU 83
+Priority 952
+NumIO 8
+IO 63 27 4 17 80 47 12 30
+
+Process 94
+Enter 621
+CPU 36
+Priority 948
+NumIO 3
+IO 0 12 26
+
+Process 95
+Enter 4064
+CPU 90
+Priority 866
+NumIO 9
+IO 8 51 80 23 21 21 35 30 58
+
+Process 96
+Enter 413
+CPU 60
+Priority 900
+NumIO 6
+IO 5 32 3 28 17 30
+
+Process 97
+Enter 1257
+CPU 71
+Priority 931
+NumIO 7
+IO 33 21 55 0 42 35 22
+
+Process 98
+Enter 4352
+CPU 27
+Priority 929
+NumIO 2
+IO 3 5
+
+Process 99
+Enter 3127
+CPU 21
+Priority 1025
+NumIO 2
+IO 15 8
