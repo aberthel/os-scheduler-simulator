@@ -3,7 +3,7 @@ all: pol_sim.c queue_func.c helper_func.c fifo.c rr.c lottery.c fb.c gen_process
 	gcc -Wall -o PGen gen_processes.c helper_func.c 
 
 sim: pol_sim.c queue_func.c helper_func.c fifo.c rr.c lottery.c fb.c
-	gcc -Wall -o PolSim TBD.c queue_func.c helper_func.c fifo.c rr.c lottery.c fb.c
+	gcc -Wall -o PolSim pol_sim.c queue_func.c helper_func.c fifo.c rr.c lottery.c fb.c
 
 gen: gen_processes.c helper_func.c
 	gcc -Wall -o PGen gen_processes.c helper_func.c 
